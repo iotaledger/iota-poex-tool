@@ -48,17 +48,7 @@ import { verify, hash, publish } from 'iota-proof-tool'
       depth,
       minWeightMagnitude
     }, (retArr) => {
-      navigator.clipboard.writeText(retArr[0].hash).then(() => {
-        /* clipboard successfully set */
-        this.setState({
-          genTxHash: retArr[0].hash,
-          isLoading: false
-        })
-        alert('TX Hash has been copied to clipboard!')
-      }, function() {
-        alert('clipboard not supported, please copy manually the generated TX Hash')
-      });
-
+       alert(`TX Hash=${retArr[0].hash}`)
     })
 //...
 

@@ -31,9 +31,9 @@ program
                     address,
                     minWeightMagnitude,
                     depth
-                  }, function(res) {
-          console.log(`https://thetangle.org/transaction/${res[0].hash}`)
-      })
+                  }, (res) => {
+                      console.log(res)
+                  })
 
     })
 
@@ -76,21 +76,22 @@ program
   .option('-s, --seed [seed]', `Seed, defaults: ${dSeed}`)
   .option('-m, --magnitude [magnitude]', `MinWeightMagnitude, defaults: ${dMinWeightMagnitude}`)
   .option('-d, --depth [depth]', `Depth, defaults: ${dDepth}`)
-  .action(function (docpath, options) {
+  .action(async function (docpath, options) {
     console.log(docpath, options.address, options.binary)
     const provider = options.provider ? options.provider : dProvider
     const seed = options.seed ? options.seed : dSeed
     const depth = options.depth ? options.depth : dDepth
     const address = options.address ? options.address : dAddress
     const minWeightMagnitude = options.magnitude ? options.magnitude : dMinWeightMagnitude
-    lib.verify({
+    const verified = lib.verify({
       provider,
       seed,
       depth,
       address,
       hash: options.hash,
       minWeightMagnitude
-    }, options.binary, docpath, (verified) => console.log(verified))
+    }, options.binary, docpath)
+    console.log(verified)
   })
 
 

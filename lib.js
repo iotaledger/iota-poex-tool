@@ -29,8 +29,8 @@ function publish(bundle, cb) {
        cb(ret)
    })
    .catch(err => {
-       // catch any errors
-       throw 'there some error'+err
+       // catch and throw again for user propagation
+       throw `there some error ${err}`
    })
 }
 
@@ -68,10 +68,9 @@ async function verify(bundle, isBinaryInput, docpath) {
     tangleHash = await fetch(bundle)
     tangleHash = tangleHash.replace(/\0/g, '')
     //tangleHash.replace(/\0/g, '') removes u0000
-    const verified = (calculatedHash.trim() == tangleHash.trim())
+    const verified = (calculatedHash.trim() === tangleHash.trim())
     return verified
   } catch(e) {
-    //return false
     throw e
   }
 }

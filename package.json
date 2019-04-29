@@ -1,6 +1,6 @@
 {
   "name": "iota-proof-tool",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "IOTA Signature command line tool",
   "main": "dist/lib.js",
   "module": "dist/lib.js",

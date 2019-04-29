@@ -28,8 +28,7 @@
     "@iota/core": "^1.0.0-beta.8",
     "axios": "^0.18.0",
     "commander": "^2.19.0",
-    "js-sha1": "^0.6.0",
-    "mam.client.js": "git+https://github.com/iotaledger/mam.client.js.git"
+    "js-sha1": "^0.6.0"
   },
   "devDependencies": {
     "@babel/preset-es2016": "^7.0.0-beta.53",

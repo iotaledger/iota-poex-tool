@@ -14,7 +14,7 @@ The Library exports a couple of few APIs listed below:
 ## Bundle's properties
 
 ```
-  { 
+  {
   provider,
   data,
   seed,
@@ -64,13 +64,8 @@ import { verify, hash, publish } from 'iota-proof-tool'
 
 // Verifying if the file matches the previous signed one then reflecting the result into a React state
 
-verify(
-       bundle,
-       true,
-       file,
-       (verified) => this.setState({ isLoading: false, docMutated: verified })
-      )
-
+  const verified = await verify(bundle, true, file)
+  this.setState({ isLoading: false, docMutated: verified })
 
 ```
 
@@ -108,8 +103,8 @@ That is all what we can do with signing documents, in the next section we are go
 > iotatool fetch OIC9B9TZEU9DTAPJ9XOJCQLIFLDRYANONPYWJI9VG9MMLFRKMIOENPSMNICJIQNKFMTQIMSSGOOJIH999
 tx value = afeea52aa284ffa2110f2feaa67fffff2
 ```
-Again, here we have omitted all bundle parameters thus using default ones. 
-Using the same default paramaters, we were able to retrieve the exact data that was stored in the Tangle, now we could just calculate the file hash and compare it with this Hash to say whether the document has been changed or not.
+Again, here we have omitted all bundle parameters thus using default ones.
+Using the same default parameters, we were able to retrieve the exact data that was stored in the Tangle, now we could just calculate the file hash and compare it with this Hash to say whether the document has been changed or not.
 
 Even more easier we could also use a direct Command that does that for us **verify** fn :
 

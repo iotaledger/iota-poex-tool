@@ -69,32 +69,31 @@ var verify = function () {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            console.log(bundle, isBinaryInput, docpath);
             calculatedHash = hash(docpath, isBinaryInput);
             tangleHash = null;
-            _context2.prev = 3;
-            _context2.next = 6;
+            _context2.prev = 2;
+            _context2.next = 5;
             return fetch(bundle);
 
-          case 6:
+          case 5:
             tangleHash = _context2.sent;
 
             tangleHash = tangleHash.replace(/\0/g, '');
             //tangleHash.replace(/\0/g, '') removes u0000
-            verified = calculatedHash.trim() == tangleHash.trim();
+            verified = calculatedHash.trim() === tangleHash.trim();
             return _context2.abrupt('return', verified);
 
-          case 12:
-            _context2.prev = 12;
-            _context2.t0 = _context2['catch'](3);
+          case 11:
+            _context2.prev = 11;
+            _context2.t0 = _context2['catch'](2);
             throw _context2.t0;
 
-          case 15:
+          case 14:
           case 'end':
             return _context2.stop();
         }
       }
-    }, _callee2, this, [[3, 12]]);
+    }, _callee2, this, [[2, 11]]);
   }));
 
   return function verify(_x2, _x3, _x4) {
@@ -140,8 +139,8 @@ function publish(bundle, cb) {
   }).then(function (ret) {
     cb(ret);
   }).catch(function (err) {
-    // catch any errors
-    throw 'there some error' + err;
+    // catch and throw again for user propagation
+    throw 'there some error ' + err;
   });
 }
 

@@ -61,7 +61,6 @@ async function fetch(bundle) {
   }
 }
 async function verify(bundle, isBinaryInput, docpath) {
-  console.log(bundle, isBinaryInput, docpath)
   const calculatedHash = hash(docpath, isBinaryInput)
   let tangleHash = null
   try {

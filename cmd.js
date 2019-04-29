@@ -77,13 +77,12 @@ program
   .option('-m, --magnitude [magnitude]', `MinWeightMagnitude, defaults: ${dMinWeightMagnitude}`)
   .option('-d, --depth [depth]', `Depth, defaults: ${dDepth}`)
   .action(async function (docpath, options) {
-    console.log(docpath, options.address, options.binary)
     const provider = options.provider ? options.provider : dProvider
     const seed = options.seed ? options.seed : dSeed
     const depth = options.depth ? options.depth : dDepth
     const address = options.address ? options.address : dAddress
     const minWeightMagnitude = options.magnitude ? options.magnitude : dMinWeightMagnitude
-    const verified = lib.verify({
+    const verified = await lib.verify({
       provider,
       seed,
       depth,

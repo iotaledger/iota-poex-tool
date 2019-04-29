@@ -1,5 +1,5 @@
 # Documentation for iota-proof-tool
-**iota-proof-tool** its a small library and a command line tool that wraps commons functionalities that someone needs for building Proof of Existence kind of apps, this library have been used in this [Proof of existence Poc](https://build-cgshokyycb.now.sh/).
+**iota-proof-tool** its a small library and a command line tool that wraps commons functionalities that someone needs for building Proof of Existence kind of apps, this library have been used in this [Proof of existence Poc](https://build-vvzhlpnvdd.now.sh/).
 
 # API
 

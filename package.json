@@ -1,7 +1,7 @@
 {
-  "name": "iota-proof-tool",
+  "name": "iota-poex-tool",
   "version": "1.1.2",
-  "description": "IOTA Signature command line tool",
+  "description": "IOTA Signature command library/line tool",
   "main": "dist/lib.js",
   "module": "dist/lib.js",
   "private": false,
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/iotaledger/iota-proof-tool.git"
+    "url": "git+https://github.com/iotaledger/iota-poex-tool.git"
   },
   "keywords": [
     "IOTA",
@@ -20,9 +20,9 @@
   "author": "Marwen Trabelsi",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/iotaledger/iota-proof-tool.git/issues"
+    "url": "https://github.com/iotaledger/iota-poex-tool.git/issues"
   },
-  "homepage": "https://github.com/iotaledger/iota-proof-tool.git#readme",
+  "homepage": "https://github.com/iotaledger/iota-poex-tool.git#readme",
   "dependencies": {
     "@iota/converter": "^1.0.0-beta.8",
     "@iota/core": "^1.0.0-beta.8",

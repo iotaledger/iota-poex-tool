@@ -18,7 +18,7 @@
     "signature"
   ],
   "author": "Marwen Trabelsi",
-  "license": "apache 2.0",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/iotaledger/signature-validation-tool/issues"
   },

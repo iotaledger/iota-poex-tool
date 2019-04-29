@@ -1,0 +1,7 @@
+const dSeed = 'HEQLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWORL9D'
+const dAddress = 'MRDVKCDQAPYQOJEQTUWDMNYZKDUDBRNHJWV9VTKTCUUYQICLPFBETMYYVKEPFCXZE9EJZHFUWJZVEWUCWSGDUVMOYD'
+const dProvider = 'https://altnodes.devnet.iota.org'
+const dDepth = 3
+const dMinWeightMagnitude = 14 // 9 for devenets
+
+module.exports  = { dSeed, dAddress, dDepth, dMinWeightMagnitude, dProvider }

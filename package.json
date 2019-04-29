@@ -1,0 +1,41 @@
+{
+  "name": "iota-proof-tool",
+  "version": "1.1.1",
+  "description": "IOTA Signature command line tool",
+  "main": "dist/lib.js",
+  "module": "dist/lib.js",
+  "private": false,
+  "scripts": {
+    "build": "rm -rf dist && NODE_ENV=production babel lib.js --out-dir ./dist --copy-files --ignore __tests__,spec.js,test.js,__snapshots__"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iotaledger/signature-validation-tool.git"
+  },
+  "keywords": [
+    "IOTA",
+    "data",
+    "signature"
+  ],
+  "author": "Marwen Trabelsi",
+  "license": "apache 2.0",
+  "bugs": {
+    "url": "https://github.com/iotaledger/signature-validation-tool/issues"
+  },
+  "homepage": "https://github.com/iotaledger/signature-validation-tool#readme",
+  "dependencies": {
+    "@iota/converter": "^1.0.0-beta.8",
+    "@iota/core": "^1.0.0-beta.8",
+    "axios": "^0.18.0",
+    "commander": "^2.19.0",
+    "js-sha1": "^0.6.0",
+    "mam.client.js": "git+https://github.com/iotaledger/mam.client.js.git"
+  },
+  "devDependencies": {
+    "@babel/preset-es2016": "^7.0.0-beta.53",
+    "babel-cli": "^6.26.0",
+    "babel-plugin-styled-components": "^1.8.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1"
+  }
+}

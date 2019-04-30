@@ -1,9 +1,9 @@
-# Documentation for iota-poex-tool
-**iota-poex-tool** its a small library and a command line tool that wraps commons functionalities that someone needs for building Proof of Existence kind of apps, this library have been used in this [Proof of existence Poc](https://build-vvzhlpnvdd.now.sh/).
+# Documentation for @iota/poex-tool
+**@iota/poex-tool** its a small library and a command line tool that wraps commons functionalities that someone needs for building Proof of Existence kind of apps, this library have been used in this [Proof of existence Poc](https://build-vvzhlpnvdd.now.sh/).
 
 # Getting started
 ```
-npm i iota-poex-tool
+npm i @iota/poex-tool
 ```
 
 # API
@@ -42,7 +42,7 @@ const dMinWeightMagnitude = 14 // 9 for devenets
 ## Sample codes
 
 ```
-import { verify, hash, publish } from 'iota-poex-tool'
+import { verify, hash, publish } from '@iota/poex-tool'
 // ...
 try {
 // Publishing to Tangle and putting the result to Clipboard

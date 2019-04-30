@@ -6,15 +6,14 @@
 npm i iota-poex-tool
 ```
 
-
 # API
 
 The Library exports a couple of few APIs listed below:
 
 
-* publish(bundle, callBack)
+* async publish(bundle)
 * async fetch(bundle)
-* async function verify(bundle, isBinaryInput, docpath, callBack)
+* async function verify(bundle, isBinaryInput, docpath)
 * [Optional] hash(agnosticData, isBinaryInput)
 
 ## Bundle's properties
@@ -59,9 +58,9 @@ const retArr = await publish({
  } catch(e) {
     console.log(`something went wrong ${e}`
  }
-  
- 
-    
+
+
+
 //...
 
 // Verifying if the file matches the previous signed one then reflecting the result into a React state

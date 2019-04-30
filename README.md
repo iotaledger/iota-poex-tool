@@ -3,7 +3,7 @@
 
 # Getting started
 ```
-npm i iota-proof-tool
+npm i iota-poex-tool
 ```
 
 
@@ -45,17 +45,22 @@ const dMinWeightMagnitude = 14 // 9 for devenets
 ```
 import { verify, hash, publish } from 'iota-proof-tool'
 // ...
+try {
 // Publishing to Tangle and putting the result to Clipboard
-    publish({
+ const retArr = await  publish({
       provider,
       data,
       address,
       seed,
       depth,
       minWeightMagnitude
-    }, (retArr) => {
-       alert(`TX Hash=${retArr[0].hash}`)
     })
+  } catch(e) {
+    console.log(`something went wrong ${e}`
+  }
+  
+  console.log(`TX Hash=${retArr[0].hash}`)
+    
 //...
 
 // Verifying if the file matches the previous signed one then reflecting the result into a React state

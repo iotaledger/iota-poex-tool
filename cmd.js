@@ -92,15 +92,20 @@ program
     const depth = options.depth ? options.depth : dDepth
     const address = options.address ? options.address : dAddress
     const minWeightMagnitude = options.magnitude ? options.magnitude : dMinWeightMagnitude
-    const verified = await lib.verify({
-      provider,
-      seed,
-      depth,
-      address,
-      hash: options.hash,
-      minWeightMagnitude
-    }, options.binary, docpath)
-    console.log(verified)
+    try {
+      const verified = await lib.verify({
+        provider,
+        seed,
+        depth,
+        address,
+        hash: options.hash,
+        minWeightMagnitude
+      }, options.binary, docpath)
+      console.log(verified)
+    } catch(e) {
+      console.log(e)
+    }
+
   })
 
 

@@ -2,7 +2,6 @@ const sha1 = require('js-sha1');
 const fs = require('fs');
 const { composeAPI } = require('@iota/core')
 const { asciiToTrytes, trytesToAscii } = require('@iota/converter')
-const axios = require('axios');
 
 function hash(agnosticData, isBinaryInput) {
   const buffer = !isBinaryInput ? fs.readFileSync(agnosticData) : agnosticData

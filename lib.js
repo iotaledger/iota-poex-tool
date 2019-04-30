@@ -19,7 +19,7 @@ async function publish(bundle, cb) {
    const transfers = [{
        address: bundle.address,
        value: 0, // 1Ki
-       tag: 'BLUEPRINT9', // optional tag of `0-27` trytes
+       tag: bundle.tag || 'BLUEPRINT9', // optional tag of `0-27` trytes
        message: trytes // optional message in trytes
    }]
 
@@ -62,16 +62,10 @@ async function fetch(bundle) {
 }
 async function verify(bundle, isBinaryInput, docpath) {
   const calculatedHash = hash(docpath, isBinaryInput)
-  let tangleHash = null
-  try {
-    tangleHash = await fetch(bundle)
-    tangleHash = tangleHash.replace(/\0/g, '')
-    //tangleHash.replace(/\0/g, '') removes u0000
-    const verified = (calculatedHash.trim() === tangleHash.trim())
-    return verified
-  } catch(e) {
-    throw e
-  }
+  let tangleHash = await fetch(bundle)
+  tangleHash = tangleHash.replace(/\0/g, '')
+  //tangleHash.replace(/\0/g, '') removes u0000
+  return = (calculatedHash.trim() === tangleHash.trim())
 }
 
 

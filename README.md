@@ -22,6 +22,7 @@ The Library exports a couple of few APIs listed below:
   {
   provider,
   data,
+  tag,
   seed,
   address,
   minWeightMagnitude,

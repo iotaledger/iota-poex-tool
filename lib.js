@@ -2,6 +2,8 @@ const sha1 = require('js-sha1');
 const fs = require('fs');
 const { composeAPI } = require('@iota/core')
 const { asciiToTrytes, trytesToAscii } = require('@iota/converter')
+const { dTag } = require('./defaults')
+
 
 function hash(agnosticData, isBinaryInput) {
   const buffer = !isBinaryInput ? fs.readFileSync(agnosticData) : agnosticData
@@ -15,10 +17,11 @@ async function publish(bundle, cb) {
    })
    const trytes = asciiToTrytes(bundle.data);
    // Array of transfers which defines transfer recipients and value transferred in IOTAs.
+   const tag = bundle.tag || dTag
    const transfers = [{
        address: bundle.address,
        value: 0, // 1Ki
-       tag: bundle.tag || 'BLUEPRINT9', // optional tag of `0-27` trytes
+       tag: tag.toUpperCase(),// optional tag of `0-27` trytes
        message: trytes // optional message in trytes
    }]
 
@@ -64,7 +67,7 @@ async function verify(bundle, isBinaryInput, docpath) {
   let tangleHash = await fetch(bundle)
   tangleHash = tangleHash.replace(/\0/g, '')
   //tangleHash.replace(/\0/g, '') removes u0000
-  return = (calculatedHash.trim() === tangleHash.trim())
+  return (calculatedHash.trim() === tangleHash.trim())
 }
 
 

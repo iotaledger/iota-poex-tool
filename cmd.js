@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const program = require('commander')
 const lib = require('./lib')
-const { dSeed, dAddress, dDepth, dMinWeightMagnitude, dProvider } = require('./defaults')
+const { dSeed, dAddress, dDepth, dMinWeightMagnitude, dProvider, dTag } = require('./defaults')
 
 program
   .command('hash <file>')
@@ -18,22 +18,32 @@ program
     .option('-a, --address [address]', `Provider, defaults: ${dAddress}`)
     .option('-m, --magnitude [magnitude]', `MinWeightMagnitude, defaults: ${dMinWeightMagnitude}`)
     .option('-d, --depth [depth]', `Depth, defaults: ${dDepth}`)
-    .action((data, options) => {
+    .option('-t, --tag [depth]', `Tag, defaults: ${dTag}`)
+    .option('-f, --full', 'Show full response from the Tangle, defaults: only show TX Hash')
+    .action(async (data, options) => {
       const provider = options.provider ? options.provider : dProvider
       const seed = options.seed ? options.seed : dSeed
       const address = options.address ? options.address : dAddress
       const depth = options.depth ? options.depth : dDepth
+      const tag = options.tag ? options.tag : dTag
       const minWeightMagnitude = options.magnitude ? options.magnitude : dMinWeightMagnitude
-
-      lib.publish({ provider,
-                    data,
-                    seed,
-                    address,
-                    minWeightMagnitude,
-                    depth
-                  }, (res) => {
-                      console.log(res)
-                  })
+      try {
+        const res = await lib.publish({ provider,
+                      data,
+                      seed,
+                      tag,
+                      address,
+                      minWeightMagnitude,
+                      depth
+                    })
+        if(options.full) {
+          console.log(res)
+        } else {
+          console.log('tx Hash =', res[0].hash)
+        }
+      } catch(e) {
+        console.log(e)
+      }
 
     })
 

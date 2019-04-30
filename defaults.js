@@ -3,5 +3,6 @@ const dAddress = 'MRDVKCDQAPYQOJEQTUWDMNYZKDUDBRNHJWV9VTKTCUUYQICLPFBETMYYVKEPFC
 const dProvider = 'https://altnodes.devnet.iota.org'
 const dDepth = 3
 const dMinWeightMagnitude = 14 // 9 for devenets
+const dTag = 'BLUEPRINT9'
 
-module.exports  = { dSeed, dAddress, dDepth, dMinWeightMagnitude, dProvider }
+module.exports  = { dSeed, dAddress, dDepth, dMinWeightMagnitude, dProvider, dTag }

@@ -47,7 +47,7 @@ import { verify, hash, publish } from 'iota-proof-tool'
 // ...
 try {
 // Publishing to Tangle and putting the result to Clipboard
- const retArr = await  publish({
+const retArr = await publish({
       provider,
       data,
       address,
@@ -55,11 +55,12 @@ try {
       depth,
       minWeightMagnitude
     })
-  } catch(e) {
+    console.log(`TX Hash=${retArr[0].hash}`)
+ } catch(e) {
     console.log(`something went wrong ${e}`
-  }
+ }
   
-  console.log(`TX Hash=${retArr[0].hash}`)
+ 
     
 //...
 

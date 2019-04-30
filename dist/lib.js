@@ -1,8 +1,8 @@
 'use strict';
 
-var fetch = function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(bundle) {
-    var iota, address, response, asciiArr;
+var publish = function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(bundle, cb) {
+    var iota, trytes, transfers, prepTrytes, ret;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -10,25 +10,77 @@ var fetch = function () {
             iota = composeAPI({
               provider: bundle.provider
             });
+            trytes = asciiToTrytes(bundle.data);
+            // Array of transfers which defines transfer recipients and value transferred in IOTAs.
+
+            transfers = [{
+              address: bundle.address,
+              value: 0, // 1Ki
+              tag: 'BLUEPRINT9', // optional tag of `0-27` trytes
+              message: trytes // optional message in trytes
+            }];
+            prepTrytes = null;
+            ret = null;
+            _context.prev = 5;
+            _context.next = 8;
+            return iota.prepareTransfers(bundle.seed, transfers);
+
+          case 8:
+            prepTrytes = _context.sent;
+            _context.next = 11;
+            return iota.sendTrytes(prepTrytes, bundle.depth, bundle.minWeightMagnitude);
+
+          case 11:
+            ret = _context.sent;
+            return _context.abrupt('return', ret);
+
+          case 15:
+            _context.prev = 15;
+            _context.t0 = _context['catch'](5);
+            throw 'Could not establish a connection to the node ' + _context.t0;
+
+          case 18:
+          case 'end':
+            return _context.stop();
+        }
+      }
+    }, _callee, this, [[5, 15]]);
+  }));
+
+  return function publish(_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+var fetch = function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(bundle) {
+    var iota, address, response, asciiArr;
+    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            iota = composeAPI({
+              provider: bundle.provider
+            });
             address = bundle.address;
             response = null;
-            _context.prev = 3;
-            _context.next = 6;
+            _context2.prev = 3;
+            _context2.next = 6;
             return iota.findTransactionObjects({ addresses: [address] });
 
           case 6:
-            response = _context.sent;
-            _context.next = 12;
+            response = _context2.sent;
+            _context2.next = 12;
             break;
 
           case 9:
-            _context.prev = 9;
-            _context.t0 = _context['catch'](3);
-            throw _context.t0;
+            _context2.prev = 9;
+            _context2.t0 = _context2['catch'](3);
+            throw _context2.t0;
 
           case 12:
             if (!(response && response !== null && response !== '' && response !== undefined)) {
-              _context.next = 19;
+              _context2.next = 19;
               break;
             }
 
@@ -37,67 +89,67 @@ var fetch = function () {
             })[0];
 
             if (!(!asciiArr || asciiArr === undefined)) {
-              _context.next = 16;
+              _context2.next = 16;
               break;
             }
 
             throw 'Returned an empty object';
 
           case 16:
-            return _context.abrupt('return', trytesToAscii(asciiArr.signatureMessageFragment + '9'));
+            return _context2.abrupt('return', trytesToAscii(asciiArr.signatureMessageFragment + '9'));
 
           case 19:
-            return _context.abrupt('return', null);
+            return _context2.abrupt('return', null);
 
           case 20:
-          case 'end':
-            return _context.stop();
-        }
-      }
-    }, _callee, this, [[3, 9]]);
-  }));
-
-  return function fetch(_x) {
-    return _ref.apply(this, arguments);
-  };
-}();
-
-var verify = function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(bundle, isBinaryInput, docpath) {
-    var calculatedHash, tangleHash, verified;
-    return regeneratorRuntime.wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            calculatedHash = hash(docpath, isBinaryInput);
-            tangleHash = null;
-            _context2.prev = 2;
-            _context2.next = 5;
-            return fetch(bundle);
-
-          case 5:
-            tangleHash = _context2.sent;
-
-            tangleHash = tangleHash.replace(/\0/g, '');
-            //tangleHash.replace(/\0/g, '') removes u0000
-            verified = calculatedHash.trim() === tangleHash.trim();
-            return _context2.abrupt('return', verified);
-
-          case 11:
-            _context2.prev = 11;
-            _context2.t0 = _context2['catch'](2);
-            throw _context2.t0;
-
-          case 14:
           case 'end':
             return _context2.stop();
         }
       }
-    }, _callee2, this, [[2, 11]]);
+    }, _callee2, this, [[3, 9]]);
   }));
 
-  return function verify(_x2, _x3, _x4) {
+  return function fetch(_x3) {
     return _ref2.apply(this, arguments);
+  };
+}();
+
+var verify = function () {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(bundle, isBinaryInput, docpath) {
+    var calculatedHash, tangleHash, verified;
+    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            calculatedHash = hash(docpath, isBinaryInput);
+            tangleHash = null;
+            _context3.prev = 2;
+            _context3.next = 5;
+            return fetch(bundle);
+
+          case 5:
+            tangleHash = _context3.sent;
+
+            tangleHash = tangleHash.replace(/\0/g, '');
+            //tangleHash.replace(/\0/g, '') removes u0000
+            verified = calculatedHash.trim() === tangleHash.trim();
+            return _context3.abrupt('return', verified);
+
+          case 11:
+            _context3.prev = 11;
+            _context3.t0 = _context3['catch'](2);
+            throw _context3.t0;
+
+          case 14:
+          case 'end':
+            return _context3.stop();
+        }
+      }
+    }, _callee3, this, [[2, 11]]);
+  }));
+
+  return function verify(_x4, _x5, _x6) {
+    return _ref3.apply(this, arguments);
   };
 }();
 
@@ -119,29 +171,6 @@ function hash(agnosticData, isBinaryInput) {
   var buffer = !isBinaryInput ? fs.readFileSync(agnosticData) : agnosticData;
   var hash = sha1(buffer);
   return hash;
-}
-
-function publish(bundle, cb) {
-  var iota = composeAPI({
-    provider: bundle.provider
-  });
-  var trytes = asciiToTrytes(bundle.data);
-
-  // Array of transfers which defines transfer recipients and value transferred in IOTAs.
-  var transfers = [{
-    address: bundle.address,
-    value: 0, // 1Ki
-    tag: 'BLUEPRINT9', // optional tag of `0-27` trytes
-    message: trytes // optional message in trytes
-  }];
-  iota.prepareTransfers(bundle.seed, transfers).then(function (trytes) {
-    return iota.sendTrytes(trytes, bundle.depth, bundle.minWeightMagnitude);
-  }).then(function (ret) {
-    cb(ret);
-  }).catch(function (err) {
-    // catch and throw again for user propagation
-    throw 'there some error ' + err;
-  });
 }
 
 module.exports = { hash: hash, publish: publish, fetch: fetch, verify: verify };

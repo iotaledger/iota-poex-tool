@@ -10,12 +10,11 @@ function hash(agnosticData, isBinaryInput) {
   return hash
 }
 
-function publish(bundle, cb) {
+async function publish(bundle, cb) {
    const iota = composeAPI({
        provider: bundle.provider
    })
    const trytes = asciiToTrytes(bundle.data);
-
    // Array of transfers which defines transfer recipients and value transferred in IOTAs.
    const transfers = [{
        address: bundle.address,
@@ -23,15 +22,16 @@ function publish(bundle, cb) {
        tag: 'BLUEPRINT9', // optional tag of `0-27` trytes
        message: trytes // optional message in trytes
    }]
-   iota.prepareTransfers(bundle.seed, transfers)
-   .then(trytes => iota.sendTrytes(trytes, bundle.depth, bundle.minWeightMagnitude))
-   .then(ret => {
-       cb(ret)
-   })
-   .catch(err => {
-       // catch and throw again for user propagation
-       throw `there some error ${err}`
-   })
+
+   let prepTrytes = null
+   let ret = null
+   try {
+     prepTrytes = await iota.prepareTransfers(bundle.seed, transfers)
+     ret = await iota.sendTrytes(prepTrytes, bundle.depth, bundle.minWeightMagnitude)
+     return ret
+  } catch (e) {
+    throw `Could not establish a connection to the node ${e}`
+  }
 }
 
 async function fetch(bundle) {

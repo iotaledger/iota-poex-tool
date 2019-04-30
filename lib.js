@@ -57,7 +57,7 @@ async function fetch(bundle) {
     if(!asciiArr || asciiArr===undefined) {
       throw 'Returned an empty object'
     }
-    return trytesToAscii(asciiArr.signatureMessageFragment+'9')
+    return trytesToAscii(`${asciiArr.signatureMessageFragment}9`)
   } else {
     return null
   }

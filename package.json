@@ -6,7 +6,7 @@
   "module": "dist/lib.js",
   "private": false,
   "scripts": {
-    "build": "rm -rf dist && NODE_ENV=production babel lib.js --out-dir ./dist --copy-files --ignore __tests__,spec.js,test.js,__snapshots__"
+    "build": "rimraf dist && cross-env NODE_ENV=production babel lib.js --out-dir ./dist --copy-files --ignore __tests__,spec.js,test.js,__snapshots__"
   },
   "repository": {
     "type": "git",
@@ -34,6 +34,8 @@
     "babel-cli": "^6.26.0",
     "babel-plugin-styled-components": "^1.8.0",
     "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1"
+    "babel-preset-react": "^6.24.1",
+    "cross-env": "^5.2.0",
+    "rimraf": "^2.6.3"
   }
 }

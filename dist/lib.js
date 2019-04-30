@@ -16,7 +16,7 @@ var publish = function () {
             transfers = [{
               address: bundle.address,
               value: 0, // 1Ki
-              tag: 'BLUEPRINT9', // optional tag of `0-27` trytes
+              tag: bundle.tag ? bundle.tag.toUpperCase() : '', // optional tag of `0-27` trytes
               message: trytes // optional message in trytes
             }];
             prepTrytes = null;
@@ -116,36 +116,28 @@ var fetch = function () {
 
 var verify = function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(bundle, isBinaryInput, docpath) {
-    var calculatedHash, tangleHash, verified;
+    var calculatedHash, tangleHash;
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
             calculatedHash = hash(docpath, isBinaryInput);
-            tangleHash = null;
-            _context3.prev = 2;
-            _context3.next = 5;
+            _context3.next = 3;
             return fetch(bundle);
 
-          case 5:
+          case 3:
             tangleHash = _context3.sent;
 
             tangleHash = tangleHash.replace(/\0/g, '');
             //tangleHash.replace(/\0/g, '') removes u0000
-            verified = calculatedHash.trim() === tangleHash.trim();
-            return _context3.abrupt('return', verified);
+            return _context3.abrupt('return', calculatedHash.trim() === tangleHash.trim());
 
-          case 11:
-            _context3.prev = 11;
-            _context3.t0 = _context3['catch'](2);
-            throw _context3.t0;
-
-          case 14:
+          case 6:
           case 'end':
             return _context3.stop();
         }
       }
-    }, _callee3, this, [[2, 11]]);
+    }, _callee3, this);
   }));
 
   return function verify(_x4, _x5, _x6) {
@@ -155,7 +147,8 @@ var verify = function () {
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
-var sha1 = require('js-sha1');
+var sha256 = require('js-sha256');
+
 var fs = require('fs');
 
 var _require = require('@iota/core'),
@@ -165,11 +158,9 @@ var _require2 = require('@iota/converter'),
     asciiToTrytes = _require2.asciiToTrytes,
     trytesToAscii = _require2.trytesToAscii;
 
-var axios = require('axios');
-
 function hash(agnosticData, isBinaryInput) {
   var buffer = !isBinaryInput ? fs.readFileSync(agnosticData) : agnosticData;
-  var hash = sha1(buffer);
+  var hash = sha256(buffer);
   return hash;
 }
 

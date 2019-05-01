@@ -51,6 +51,7 @@ try {
 const retArr = await publish({
       provider,
       data,
+      tag,
       address,
       seed,
       depth,

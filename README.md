@@ -116,7 +116,9 @@ Even more easier we could also use a direct Command that does that for us **veri
 true
 ```
 
-*true* means the document is same as original and no one has potentially tempted with!
+*true* means the document is the same as the original, and no-one has tampered with it!
+
+
 
 
 That is it for now, we have covered the basic of Proof of existance using Tangle as a source of truth.

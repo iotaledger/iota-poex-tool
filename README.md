@@ -92,6 +92,10 @@ Then we need to make this "safe" by publishing it to Tangle
 > iotatool publish afeea52aa284ffa2110f2feaa67fffff2
 TX Hash: OIC9B9TZEU9DTAPJ9XOJCQLIFLDRYANONPYWJI9VG9MMLFRKMIOENPSMNICJIQNKFMTQIMSSGOOJIH999
 ```
+
+*By default the publish show only the TX hash, if you want to see full response you can use **-f** option ( full response ).*
+
+
 For simplicity, we have used all the defaults parameters but we could also use all of these flags if we wanted too:
 
 * -p, --provider [provider]
@@ -99,6 +103,8 @@ For simplicity, we have used all the defaults parameters but we could also use a
 * -a, --address [address]
 * -m, --magnitude [magnitude]
 * -d, --depth [depth]
+* -t, --tag
+* -f, --full 
 
 That is all what we can do with signing documents, in the next section we are going to fetch data from the Tangle.
 

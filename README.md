@@ -1,5 +1,5 @@
 # Documentation for @iota/poex-tool
-**@iota/poex-tool** its a small library and a command line tool that wraps commons functionalities that someone needs for building Proof of Existence kind of apps, this library have been used in this [Proof of existence Poc](https://build-vvzhlpnvdd.now.sh/).
+**@iota/poex-tool** its a small library and a command line tool that wraps commons functionalities that someone needs for building Proof of Existence kind of apps, this library have been used in this [Proof of existence Poc](https://iota-poex.dag.sh).
 
 # Getting started
 ```

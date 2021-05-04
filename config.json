@@ -1,0 +1,15 @@
+{
+    "chrysalisOptions": {
+        "provider": "https://api.lb-0.testnet.chrysalis2.com",
+        "tag": "BLUEPRINT9"
+    },
+
+    "legacyOptions": {
+        "provider": "https://altnodes.devnet.iota.org",
+        "seed": "HEQLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWORL9D",
+        "address": "MRDVKCDQAPYQOJEQTUWDMNYZKDUDBRNHJWV9VTKTCUUYQICLPFBETMYYVKEPFCXZE9EJZHFUWJZVEWUCWSGDUVMOYD",
+        "tag": "BLUEPRINT9",
+        "minWeightMagnitude": "9",
+        "depth": "3"
+    }
+}

@@ -3,7 +3,7 @@ const program = require('commander')
 const lib = require('./lib')
 // const { config.legacyOptions.seed, config.legacyOptions.address, config.legacyOptions.depth, config.legacyOptions.minWeightMagnitude, config.legacyOptions.provider, config.legacyOptions.tag } = require('./defaults')
 
-const config = require("./../options.config");
+const config = require("./../config.json");
 
 program
   .command('hash <file>')

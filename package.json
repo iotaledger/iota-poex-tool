@@ -1,12 +1,13 @@
 {
   "name": "@iota/poex-tool",
   "version": "1.2.0",
+  "type": "module",
   "description": "IOTA Signature command library/line tool",
   "main": "dist/lib.js",
   "module": "dist/lib.js",
   "private": false,
   "scripts": {
-    "build": "rimraf dist && cross-env NODE_ENV=production babel src/lib.js --out-dir ./dist --copy-files --ignore __tests__,spec.js,test.js,__snapshots__"
+    "build": "rimraf dist && cross-env NODE_ENV=production babel src/lib.ts --out-dir ./dist --copy-files --ignore __tests__,spec.js,test.js,__snapshots__"
   },
   "repository": {
     "type": "git",

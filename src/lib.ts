@@ -1,19 +1,19 @@
-import { utils } from "./utils";
-
 import { IConfiguration } from "./../models/IConfig";
+import { utils } from "./utils";
 
 import { ClientBuilder } from "@iota/client";
 import { Converter } from '@iota/iota.js';
 
+export default class lib {
 
-class lib {
     /**
-     * 
-     * @param options Options and data needed to publish a proof of existence
+     * Publish a proof-of-existence in a message on the Tangle
+     * @param fileHash The hash of the file that will be used as the proof-of-existence 
+     * @param provider API-endpoint for Tangle operations
      * @param cb Optional callback-function
-     * @returns messageId of the message
+     * @returns messageId of the published message containing the proof-of-existence
      */
-    static async publishC2(data: string, provider?: string, cb?: Function) {
+    static async publishC2(fileHash: string, provider?: string, cb?: Function) {
         const config: IConfiguration = require("../options.config");
         if (!provider) {
             provider = config.chrysalisOptions.provider;
@@ -31,7 +31,7 @@ class lib {
                 .message()
                 // .seed(options.seed)
                 .accountIndex(0)
-                .data(new TextEncoder().encode(data))
+                .data(new TextEncoder().encode(fileHash))
 
             const msg = await msgSender.submit()
 
@@ -49,7 +49,7 @@ class lib {
 
 
     /**
-     * fetch the data of a message from the Mainnet 
+     * Fetch the payload-data of a message that in this context should contain the proof-of-existence-hash 
      * @param messageId The messageId of the message to fetch
      * @param provider The endpoint to use. If not set, use value from config-file
      * @returns string of actual payload data (e.g. the hash)
@@ -86,9 +86,24 @@ class lib {
         }
     }
 
-    
-
+    /**
+     * Verify that some document has not been tampered since its proof-of-existence has been published on the Tangle
+     * @param messageId The identifier of the message containing the proof-of-existence
+     * @param isBinaryInput Flag value to determine whether docPath is a binary input or file path
+     * @param docpath Either binary file or file path of the file to verify
+     * @param provider API-endpoint for Tangle operations
+     * @returns true if the document has not been tampered, e.g. the hash matches the provided proof-of-existence, else false
+     */
     static async verifyC2(messageId: string, isBinaryInput: boolean, docpath: string, provider?: string) {
+        if (!provider) {
+            const config: IConfiguration = require("../options.config");
+            provider = config.chrysalisOptions.provider;
+        }
+
+        if (!utils.isMessageId(messageId)) {
+            throw `Specified messageId ${messageId} is not valid`;
+        }
+
         const calculatedHash = utils.hash(docpath, isBinaryInput)
         let tangleHash;
         try {
@@ -104,6 +119,5 @@ class lib {
         //tangleHash.replace(/\0/g, '') removes u0000
         return (calculatedHash.trim() === tangleHash.trim())
     }
-
 }
-export = lib;
+// export = lib;

@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 const program = require('commander')
-const lib = require('./lib')
+const lib = require('./lib.ts')
+// import lib from './lib.ts';
+// import lib = require("./lib");
+
 // const { config.legacyOptions.seed, config.legacyOptions.address, config.legacyOptions.depth, config.legacyOptions.minWeightMagnitude, config.legacyOptions.provider, config.legacyOptions.tag } = require('./defaults')
 
 const config = require("./../config.json");

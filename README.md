@@ -59,7 +59,7 @@ const retArr = await publish({
     })
     console.log(`TX Hash=${retArr[0].hash}`)
  } catch(e) {
-    console.log(`something went wrong ${e}`
+    console.log(`something went wrong ${e}`)
  }
 
 

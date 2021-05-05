@@ -2,7 +2,7 @@ export interface ILegacyPublishOptions {
     /**
      * The api endpoint for the IOTA certificates.
      */
-    provider?: string,
+    provider: string,
 
     /**
      * The serialized data (?)
@@ -17,20 +17,20 @@ export interface ILegacyPublishOptions {
     /**
      * The seed from which to derive legacy-addresses
      */
-    seed?: string,
+    seed: string,
 
     /**
      * The address to use for the proof-transactions
      */
-    address?: string,
+    address: string,
 
     /**
      * 9 for Devnet, 14 for Mainnet
      */
-    minWeightMagnitude?: number,
+    minWeightMagnitude: number,
 
     /**
      * Legacy-network-parameter
      */
-    depth?: number
+    depth: number
 }

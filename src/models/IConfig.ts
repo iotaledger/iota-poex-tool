@@ -1,6 +1,7 @@
+//Not needed anymore
 export interface IConfiguration {
 
-    chrysalisOptions: IChrysalisOptions,
+    chrysalisOptions?: IChrysalisOptions,
     legacyOptions?: ILegacyOptions
 }
 

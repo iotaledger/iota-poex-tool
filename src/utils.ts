@@ -27,7 +27,7 @@ export class utils {
     }
 
     /**
-     * 
+     * Calculate Sha256-Hash of a given file
      * @param agnosticData Either directly a binary file or a filepath to the file that should be hashed
      * @param isBinaryInput Flag to check  the type provided in agnosticData-parm
      * @returns 

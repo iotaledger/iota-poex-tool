@@ -14,6 +14,18 @@ export class utils {
         return true;
     }
 
+    
+    /**
+     * Is the given paramater a potential messageId
+     * @param str The string to validate.
+     */
+     public static isSHA256(str: string): boolean {
+        if (!new RegExp(`^[A-Fa-f0-9]{${str.length}}$`).test(str) || str.length != 64) {
+            return false;
+        }
+        return true;
+    }
+
     /**
      * 
      * @param agnosticData Either directly a binary file or a filepath to the file that should be hashed

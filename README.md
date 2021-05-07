@@ -12,15 +12,16 @@ npm i @iota/poex-tool
 The Library exports a couple of APIs listed below:
 
 
-* async publish(fileHash, tag, provider)
-* async fetch(messageId, provider)
-* async function verify(messageId, isBinaryInput, docpath, provider)
-* hash(agnosticData, isBinaryInput)
+* async publish(fileHash, tag, provider): messageId-string
+* async fetch(messageId, provider): SHA-256-hash-string
+* async function verify(messageId, isBinaryInput, docpath, provider): boolean
+* hash(agnosticData, isBinaryInput): SHS-256-hash-string
 
+Please not that the method signature of the publish-function changed from legacy to Chrysalis network! It now simply returns the messageId instead of an ```Transaction```-array
 It also provides backwards compatibility with the legacy network to verify previously issued proofs.
 
-* async fetchLegacy(fetchOptions)
-* async verifyLegacy(fetchOptions, isBinaryInput, docpath)
+* async fetchLegacy(fetchOptions): SHA-256-hash-string
+* async verifyLegacy(fetchOptions, isBinaryInput, docpath): boolean
 
 The legacy-fetch options can be viewed [here](https://github.com/iotaledger/iota-poex-tool/src/models)
 
@@ -42,6 +43,7 @@ try {
   // Publish to Tangle and log the result
   messageId = await publish(hash, tag, provider)
   console.log(`Published PoE in messageId ${messageId}`)
+  //In case this would have been a legacy operation: console.log(`TX Hash=${retArr[0].hash}`)
 } 
 catch(e) {
   console.log(`something went wrong ${e}`)

@@ -3,8 +3,8 @@
   "version": "2.0.0",
   "type": "module",
   "description": "IOTA Signature command library/line tool",
-  "main": "dist/lib.js",
-  "module": "dist/lib.js",
+  "main": "dist/src/lib.js",
+  "module": "dist/src/lib.js",
   "private": false,
   "scripts": {
     "build": "rimraf dist && tsc"

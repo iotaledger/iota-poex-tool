@@ -8,38 +8,25 @@ npm i @iota/poex-tool
 
 # API
 
-The Library exports a couple of few APIs listed below:
+The Library exports a couple of APIs listed below:
 
 
-* async publish(bundle)
-* async fetch(bundle)
-* async function verify(bundle, isBinaryInput, docpath)
-* [Optional] hash(agnosticData, isBinaryInput)
+* async publish(fileHash, tag, provider)
+* async fetch(messageId, provider)
+* async function verify(messageId, isBinaryInput, docpath, provider)
+* hash(agnosticData, isBinaryInput)
 
-## Bundle's properties
+It also provides backwards compatibility with the legacy network to verify previously issued proofs.
 
-```
-  {
-  provider,
-  data,
-  tag,
-  seed,
-  address,
-  minWeightMagnitude,
-  depth
-  }
-```
+* async publishLegacy(publishOptions)
+* async fetchLegacy(fetchOptions)
+* async verifyLegacy(fetchOptions, isBinaryInput, docpath)
 
-When using the CMD these bundles properties defaults to :
+The legacy fetch-and publishOptions can be viewed [here](https://github.com/iotaledger/iota-poex-tool/src/models)
 
-```
-const dSeed = 'HEQLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWORLDHELLOWORL9D'
-const dAddress = 'MRDVKCDQAPYQOJEQTUWDMNYZKDUDBRNHJWV9VTKTCUUYQICLPFBETMYYVKEPFCXZE9EJZHFUWJZVEWUCWSGDUVMOYD'
-const dProvider = 'https://altnodes.devnet.iota.org'
-const dDepth = 3
-const dMinWeightMagnitude = 9 // 14 for Mainnet
-const dTag = 'BLUEPRINT9'
-```
+
+When using the CMD these network-related parameters of the functions default to [these values](https://github.com/iotaledger/iota-poex-tool/src/config.json)
+
 
 ## Sample codes
 
@@ -81,20 +68,23 @@ Here a quick demo:
 Hashing the document is a necessary step but not necessarily done via this lib, however we highly recomend using it since it has been designed for easy usage/intergation with other functions:
 
 ```
-> iotatool hash /home/myContract.doc
-afeea52aa284ffa2110f2feaa67fffff2
+> node cmd.js hash /home/myContract.doc
+myContract.doc hash = afeea52aa284ffa2110f2feaa67fffff2
 ```
 Please note when using this in web you have to use the **-b** flag to mark it as Binary data, otherwise it will be treated as *path*!
 
-Then we need to make this "safe" by publishing it to Tangle
+Then we issue a proof of existence of the file, meaning we save the current hash of the file, e.g. its current state, by publishing it on the Tangle.
 
 ```
-> iotatool publish afeea52aa284ffa2110f2feaa67fffff2
-TX Hash: OIC9B9TZEU9DTAPJ9XOJCQLIFLDRYANONPYWJI9VG9MMLFRKMIOENPSMNICJIQNKFMTQIMSSGOOJIH999
+> node cmd.js publish afeea52aa284ffa2110f2feaa67fffff2
+MessageId = 0988e59a1ac52ac0d5397f48d9357f8c2819abf48235d964fdd89317475bff35  
 ```
 
-*By default the publish show only the TX hash, if you want to see full response you can use **-f** option ( full response ).*
-
+We can now verify the file integrity by comparing a hash value with the hash-value stored in some proof-of-existence on the Tangle.
+```
+> node cmd.js verify /home/myContract.doc 0988e59a1ac52ac0d5397f48d9357f8c2819abf48235d964fdd89317475bff35 
+true
+```
 
 For simplicity, we have used all the defaults parameters but we could also use all of these flags if we wanted too:
 

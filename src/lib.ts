@@ -131,39 +131,39 @@ export function hash(agnosticData: any, isBinaryInput: boolean): string {
 
 
 /**
-     * Publish a proof-of-existence in a transaction on the Tangle
-     * @param publishOptions Optional and required options for publishing, see documentation.
-     * @param cb Optional callback function
-     * @returns Array of transaction-elements containing the Proof of existence
-     */
-export async function publishLegacy(publishOptions: ILegacyPublishOptions, cb?: Function) {
-    if (!publishOptions.provider || !publishOptions.address || !publishOptions.seed || !publishOptions.depth || !publishOptions.minWeightMagnitude)
-        throw "Did not provide all the parameters needed!";
+ * Publish a proof-of-existence in a transaction on the Tangle
+ * @param publishOptions Optional and required options for publishing, see documentation.
+ * @param cb Optional callback function
+ * @returns Array of transaction-elements containing the Proof of existence
+ */
+// export async function publishLegacy(publishOptions: ILegacyPublishOptions, cb?: Function) {
+//     if (!publishOptions.provider || !publishOptions.address || !publishOptions.seed || !publishOptions.depth || !publishOptions.minWeightMagnitude)
+//         throw "Did not provide all the parameters needed!";
 
 
-    const iota = composeAPI({
-        provider: publishOptions.provider
-    })
-    const trytes = asciiToTrytes(publishOptions.data);
+//     const iota = composeAPI({
+//         provider: publishOptions.provider
+//     })
+//     const trytes = asciiToTrytes(publishOptions.data);
 
-    // Array of transfers which defines transfer recipients and value transferred in IOTAs.
-    const transfers: Transfer[] = [{
-        address: publishOptions.address,
-        value: 0, // 1Ki
-        tag: publishOptions.tag.toUpperCase(), // optional tag of `0-27` trytes
-        message: trytes // optional message in trytes
-    }]
+//     // Array of transfers which defines transfer recipients and value transferred in IOTAs.
+//     const transfers: Transfer[] = [{
+//         address: publishOptions.address,
+//         value: 0, // 1Ki
+//         tag: publishOptions.tag.toUpperCase(), // optional tag of `0-27` trytes
+//         message: trytes // optional message in trytes
+//     }]
 
-    let prepTrytes = null
-    let ret = null
-    try {
-        prepTrytes = await iota.prepareTransfers(publishOptions.seed, transfers)
-        ret = await iota.sendTrytes(prepTrytes, publishOptions.depth, publishOptions.minWeightMagnitude)
-        return ret
-    } catch (e) {
-        throw `Could not establish a connection to the node ${e}`
-    }
-}
+//     let prepTrytes = null
+//     let ret = null
+//     try {
+//         prepTrytes = await iota.prepareTransfers(publishOptions.seed, transfers)
+//         ret = await iota.sendTrytes(prepTrytes, publishOptions.depth, publishOptions.minWeightMagnitude)
+//         return ret
+//     } catch (e) {
+//         throw `Could not establish a connection to the node ${e}`
+//     }
+// }
 
 /**
  * Fetch the signatureMessageFragment of the provided transaction, which in this context should contain the proof-of-existence-hash 

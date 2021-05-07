@@ -1,3 +1,4 @@
+//No longer needed, as we no longer support publishing data on the legacy-network
 export interface ILegacyPublishOptions {
     /**
      * The api endpoint for the IOTA certificates.

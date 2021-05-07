@@ -1,5 +1,6 @@
 # Documentation for @iota/poex-tool
-**@iota/poex-tool** its a small library and a command line tool that wraps commons functionalities that someone needs for building Proof of Existence kind of apps, this library have been used in this [Proof of existence Poc](https://iota-poex.dag.sh) - [code source](https://github.com/iotaledger/poc-document-immutable-blueprint)
+**@iota/poex-tool** is a small library and a command line tool that wraps common functionalities that would be needed for building Proof of Existence (PoE) kind of apps
+This library have been used in this [Proof of Existence PoC](https://iota-poex.dag.sh) - [code source](https://github.com/iotaledger/poc-document-immutable-blueprint)
 
 # Getting started
 ```
@@ -85,8 +86,8 @@ true
 
 For simplicity, we have used all the defaults parameters but we could also use all of these flags if we wanted too:
 
-* -p, --provider [provider]
-* -a, --address [address]
+* -p, --provider
+* -a, --address [for legacy operations] 
 * -t, --tag
 
 When using the CMD these network-related parameters of the functions default to [these values](https://github.com/iotaledger/iota-poex-tool/src/config.json)
@@ -100,9 +101,10 @@ Now, let us use the fetch data from the Tangle.
 Payload-data = afeea52aa284ffa2110f2feaa67fffff2
 ```
 Again, here we have omitted all parameters thus using default ones.
-Using the same default parameters, we were able to retrieve the exact data that was stored in the Tangle, now we could just calculate the file hash and compare it with this Hash to say whether the document has been changed or not.
 
-Even more easier we could also use a direct Command that does that for us **verify** fn :
+Using the same default parameters, we were able to retrieve the exact data that was stored in the Tangle, now we could just calculate the file hash and compare it with this hash to determine whether the document has been changed since the PoE has been issued or not.
+
+Even more easier we could also use a direct Command that performs a **verify**-operation for us:
 
 
 ```

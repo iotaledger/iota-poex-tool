@@ -18,14 +18,11 @@ The Library exports a couple of APIs listed below:
 
 It also provides backwards compatibility with the legacy network to verify previously issued proofs.
 
-* async publishLegacy(publishOptions)
 * async fetchLegacy(fetchOptions)
 * async verifyLegacy(fetchOptions, isBinaryInput, docpath)
 
-The legacy fetch-and publishOptions can be viewed [here](https://github.com/iotaledger/iota-poex-tool/src/models)
+The legacy-fetch options can be viewed [here](https://github.com/iotaledger/iota-poex-tool/src/models)
 
-
-When using the CMD these network-related parameters of the functions default to [these values](https://github.com/iotaledger/iota-poex-tool/src/config.json)
 
 
 ## Sample codes
@@ -33,21 +30,21 @@ When using the CMD these network-related parameters of the functions default to 
 ```
 import { verify, hash, publish } from '@iota/poex-tool'
 // ...
+
+//Create the SHA-256 hash
+const hash = hash("/home/myContract.doc", false);
+
+const tag = "SAMPLE_MESSAGE_INDEX";
+const provider = "PERMANODE_PROVIDER";
+let messageId;
 try {
-// Publishing to Tangle and putting the result to Clipboard
-const retArr = await publish({
-      provider,
-      data,
-      tag,
-      address,
-      seed,
-      depth,
-      minWeightMagnitude
-    })
-    console.log(`TX Hash=${retArr[0].hash}`)
- } catch(e) {
-    console.log(`something went wrong ${e}`)
- }
+  // Publish to Tangle and log the result
+  messageId = await publish(hash, tag, provider)
+  console.log(`Published PoE in messageId ${messageId}`)
+} 
+catch(e) {
+  console.log(`something went wrong ${e}`)
+}
 
 
 
@@ -55,8 +52,8 @@ const retArr = await publish({
 
 // Verifying if the file matches the previous signed one then reflecting the result into a React state
 
-  const verified = await verify(bundle, true, file)
-  this.setState({ isLoading: false, docMutated: verified })
+const verified = await verify(messageId, false, "/home/myContract.doc", provider)
+this.setState({ isLoading: false, docMutated: verified })
 
 ```
 
@@ -89,28 +86,27 @@ true
 For simplicity, we have used all the defaults parameters but we could also use all of these flags if we wanted too:
 
 * -p, --provider [provider]
-* -s, --seed [seed]
 * -a, --address [address]
-* -m, --magnitude [magnitude]
-* -d, --depth [depth]
 * -t, --tag
-* -f, --full 
 
-That is all what we can do with signing documents, in the next section we are going to fetch data from the Tangle.
+When using the CMD these network-related parameters of the functions default to [these values](https://github.com/iotaledger/iota-poex-tool/src/config.json)
+
+
+Now, let us use the fetch data from the Tangle.
 
 
 ```
-> iotatool fetch OIC9B9TZEU9DTAPJ9XOJCQLIFLDRYANONPYWJI9VG9MMLFRKMIOENPSMNICJIQNKFMTQIMSSGOOJIH999
-tx value = afeea52aa284ffa2110f2feaa67fffff2
+> node cmd.js fetch 0988e59a1ac52ac0d5397f48d9357f8c2819abf48235d964fdd89317475bff35
+Payload-data = afeea52aa284ffa2110f2feaa67fffff2
 ```
-Again, here we have omitted all bundle parameters thus using default ones.
+Again, here we have omitted all parameters thus using default ones.
 Using the same default parameters, we were able to retrieve the exact data that was stored in the Tangle, now we could just calculate the file hash and compare it with this Hash to say whether the document has been changed or not.
 
 Even more easier we could also use a direct Command that does that for us **verify** fn :
 
 
 ```
-> iotatool verify /home/myContract.doc
+> node cmd.js verify /home/myContract.doc
 true
 ```
 
@@ -119,4 +115,4 @@ true
 
 
 
-That is it for now, we have covered the basic of Proof of existance using Tangle as a source of truth.
+That is it for now, we have covered the basic of Proof of existence using Tangle as a source of truth.

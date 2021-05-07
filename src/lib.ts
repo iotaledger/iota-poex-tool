@@ -3,11 +3,13 @@ import { utils } from "./utils";
 import { ClientBuilder } from "@iota/client";
 import { Converter } from '@iota/iota.js';
 
-import { ILegacyPublishOptions } from "./models/ILegacyPublishOptions";
+// import { ILegacyPublishOptions } from "./models/ILegacyPublishOptions";
 import { ILegacyFetchOptions } from "./models/ILegacyFetchOptions";
 
-import { composeAPI, Transaction, Transfer } from "@iota/core";
-import { asciiToTrytes, trytesToAscii } from "@iota/converter";
+import { composeAPI, Transaction } from "@iota/core";
+// import {  Transfer } from "@iota/core";
+import { trytesToAscii } from "@iota/converter";
+// import { asciiToTrytes } from "@iota/converter";
 
 
 /**

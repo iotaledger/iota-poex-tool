@@ -62,7 +62,7 @@ this.setState({ isLoading: false, docMutated: verified })
 
 ## Command line tool
 
-All the functions are available via command line tool - very useful for quick testing and instant Tangle interaction.
+All the functions are available via command line tool - very useful for quick testing and instant Tangle interaction. Please open a console terminal and navigate to the ```/src``` directory.
 Here a quick demo:
 
 Hashing the document is a necessary step but not necessarily done via this lib, however we highly recomend using it since it has been designed for easy usage/intergation with other functions:

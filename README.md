@@ -1,3 +1,5 @@
+> Currently this package uses the experimental iota.js-library. While it is functionally complete, it will not be as heavily maintained in the future as iota.rs. However, as this package requires to compile within the browser, iota.js is the suitable option for now.
+
 # Documentation for @iota/poex-tool
 **@iota/poex-tool** is a small library and a command line tool that wraps common functionalities that would be needed for building Proof of Existence (PoE) kind of apps
 This library have been used in this [Proof of Existence PoC](https://iota-poex.dag.sh) - [code source](https://github.com/iotaledger/poc-document-immutable-blueprint)

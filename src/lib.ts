@@ -1,7 +1,6 @@
 import { utils } from "./utils";
 
-import { ClientBuilder } from "@iota/client";
-import { Converter } from '@iota/iota.js';
+import { sendData, SingleNodeClient, Converter } from "@iota/iota.js";
 
 // import { ILegacyPublishOptions } from "./models/ILegacyPublishOptions";
 import { ILegacyFetchOptions } from "./models/ILegacyFetchOptions";
@@ -22,18 +21,11 @@ import { trytesToAscii } from "@iota/converter";
  */
 export async function publish(fileHash: string, tag: string, provider: string, cb?: Function) {
 
-    const client = new ClientBuilder()
-        .node(provider)
-        .build();
+    const client = new SingleNodeClient(provider);
 
     try {
-        const msgSender = client
-            .message()
-            .index(tag)
-            .accountIndex(0)
-            .data(new TextEncoder().encode(fileHash))
-
-        const msg = await msgSender.submit()
+        const convertedIndex = Converter.utf8ToBytes(tag);
+        const msg = await sendData(client, convertedIndex, Converter.utf8ToBytes(fileHash));
 
         if (cb) {
             cb(msg)
@@ -59,19 +51,16 @@ export async function fetch(messageId: string, provider: string): Promise<string
     if (!utils.isMessageId(messageId)) {
         throw `Specified messageId ${messageId} is not valid`;
     }
-    const client = new ClientBuilder()
-        .node(provider)
-        .build();
+    const client = new SingleNodeClient(provider);
 
     try {
-        const message = await client.getMessage().data(messageId);
+        const message = await client.message(messageId);
 
         if (!message) {
             throw `Message with specified messageId ${messageId} could not be found`;
         }
-        if (message.message.payload && message.message.payload.type === "Indexation") {
-            const dataInUtf8 = Converter.bytesToUtf8(message.message.payload.data.data);
-
+        if (message.payload && utils.isIndexationPayload(message.payload)) {
+            const dataInUtf8 = Converter.hexToUtf8(message.payload.data);
             if (!utils.isSHA256(dataInUtf8)) {
                 //Could also just return false here
                 throw `Payload-data of messageId ${messageId} did not contain a SHA-256 Proof-of-Existence!`;
